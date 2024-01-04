@@ -27,6 +27,38 @@ public class CourseManager{
         System.arraycopy(aux, 0, courses, 0, newLength);
     }
 
+    public void updateCourse(Course course){
+        int indexToUpdate = -69;
+        for(int i = 0; i < courses.length; i++){
+            if(courses[i].equals(course)){
+                indexToUpdate = i;
+                break;
+            }
+
+        }
+
+        if (indexToUpdate != -69) {
+            courses[indexToUpdate] = course;
+        }
+    }
+
+    public void removeCourse(Course course){
+        int indexOfCourseToRemove = -69;
+        for(int i=0; i < courses.length; i++){
+            if(courses[i].equals(course)){
+                indexOfCourseToRemove = i;
+                break;
+            }
+        }
+
+        if(indexOfCourseToRemove != -69){
+            Course[] newCourseArray = new Course[courses.length - 1];
+            System.arraycopy(courses, 0, newCourseArray, 0, indexOfCourseToRemove);
+            System.arraycopy(courses, indexOfCourseToRemove + 1, newCourseArray, indexOfCourseToRemove, courses.length - indexOfCourseToRemove - 1);
+            courses = newCourseArray;
+        }
+    }
+
     public void displayCoursesToConsole(){
         for(Course course: courses){
             System.out.println(course);
