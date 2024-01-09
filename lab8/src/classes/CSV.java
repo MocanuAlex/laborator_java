@@ -19,7 +19,7 @@ public class CSV implements Runnable {
 
     public void run() {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            br.readLine(); // Skip header line
+            br.readLine();
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -32,7 +32,6 @@ public class CSV implements Runnable {
 
                 dataList.add(csvData);
 
-                // You can also print the data here if needed
                 System.out.println(csvData);
             }
         } catch (IOException e) {
@@ -47,23 +46,18 @@ public class CSV implements Runnable {
     public static void main(String[] args) {
         String filePath = "D:\\INTELLIJ\\laborator_java\\lab6\\src\\classes\\Trans_dim.csv";
 
-        // Create a CSV object with the file path
         CSV csvReader = new CSV(filePath);
 
-        // Create a thread for reading the CSV file
         Thread csvThread = new Thread(csvReader);
 
-        // Start the thread
         csvThread.start();
 
         try {
-            // Wait for the thread to finish
+
             csvThread.join();
 
-            // Get the data list from the CSV object
             List<CSVdata> dataList = csvReader.getDataList();
 
-            // Sorting and printing based on bank names
             Collections.sort(dataList);
 
             for (CSVdata data : dataList) {
