@@ -26,11 +26,11 @@ public class CSV{
 
                 dataList.add(csvData);
 
-                //AFISAREA normala
+                //AFISAREA normala......................................................
                 System.out.println(csvData);
             }
 
-                //AFISAREA in functie de numele banci
+                //AFISAREA in functie de numele banci...................................
 
             /*Collections.sort(dataList);
 
