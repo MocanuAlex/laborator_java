@@ -7,11 +7,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CSV{
-    public static void main(String[] args) {
-        String filePath = "D:\\INTELLIJ\\laborator_java\\lab6\\src\\classes\\Trans_dim.csv";
-        List<CSVdata> dataList = new ArrayList<>();
+public class CSV implements Runnable {
 
+    private String filePath;
+    private List<CSVdata> dataList;
+
+    public CSV(String filePath) {
+        this.filePath = filePath;
+        this.dataList = new ArrayList<>();
+    }
+
+    public void run() {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine();
 
@@ -26,19 +32,38 @@ public class CSV{
 
                 dataList.add(csvData);
 
-                //AFISAREA normala......................................................
                 System.out.println(csvData);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-                //AFISAREA in functie de numele banci...................................
+    public List<CSVdata> getDataList() {
+        return dataList;
+    }
 
-            /*Collections.sort(dataList);
+    public static void main(String[] args) {
+        String filePath = "D:\\INTELLIJ\\laborator_java\\lab5\\src\\classes\\Trans_dim.csv";
+
+        CSV csvReader = new CSV(filePath);
+
+        Thread csvThread = new Thread(csvReader);
+
+        csvThread.start();
+
+        try {
+
+            csvThread.join();
+
+            List<CSVdata> dataList = csvReader.getDataList();
+
+            Collections.sort(dataList);
 
             for (CSVdata data : dataList) {
                 System.out.println(data);
-            }*/
-
-        } catch (IOException e) {
+            }
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

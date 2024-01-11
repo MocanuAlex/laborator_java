@@ -1,9 +1,9 @@
 package classes;
 
 public class CSVdata implements Comparable<CSVdata>{
-    String payment_key;
-    String trans_type;
-    String bank_name;
+String payment_key;
+String trans_type;
+String bank_name;
 
     public CSVdata(String payment_key, String trans_type, String bank_name) {
         this.payment_key = payment_key;
