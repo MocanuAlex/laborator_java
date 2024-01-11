@@ -1,62 +1,36 @@
 package classes;
 
+import java.util.Set;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseManager{
-    Course[] courses;
+    List<Course> courses;
 
     public CourseManager(){
         Connection conn = null;
-        courses = new Course[0];
+        courses = new ArrayList<>();
     }
 
-    public void addCourse(Course course){
-        int newLength = courses.length + 1;
-        Course[] aux = new Course[newLength];
-        int index = 0;
-
-        for(Course c : courses){
-            aux[index++]=c;
-        }
-        aux[index] = course;
-        this.courses = new Course[newLength];
-        System.arraycopy(aux, 0, courses, 0, newLength);
+    public void addCourse(Course course) {
+        courses.add(course);
     }
 
-    public void updateCourse(Course course){
-        int indexToUpdate = -69;
-        for(int i = 0; i < courses.length; i++){
-            if(courses[i].equals(course)){
-                indexToUpdate = i;
-                break;
-            }
-
-        }
-
-        if (indexToUpdate != -69) {
-            courses[indexToUpdate] = course;
+    public void updateCourse(Course course) {
+        int indexToUpdate = courses.indexOf(course);
+        if (indexToUpdate != -1) {
+            courses.set(indexToUpdate, course);
         }
     }
 
-    public void removeCourse(Course course){
-        int indexOfCourseToRemove = -69;
-        for(int i=0; i < courses.length; i++){
-            if(courses[i].equals(course)){
-                indexOfCourseToRemove = i;
-                break;
-            }
-        }
-
-        if(indexOfCourseToRemove != -69){
-            Course[] newCourseArray = new Course[courses.length - 1];
-            System.arraycopy(courses, 0, newCourseArray, 0, indexOfCourseToRemove);
-            System.arraycopy(courses, indexOfCourseToRemove + 1, newCourseArray, indexOfCourseToRemove, courses.length - indexOfCourseToRemove - 1);
-            courses = newCourseArray;
-        }
+    public void removeCourse(Course course) {
+        courses.remove(course);
     }
 
     public void displayCoursesToConsole(){
@@ -93,9 +67,9 @@ public class CourseManager{
     public void calculateAverageGradeForCourse(String courseName) {
         for (Course course : courses) {
             if (course.name.equals(courseName)) {
-                Student[] studentsInCourse = course.students;
+                Set<Student> studentsInCourse = course.students;
 
-                if (studentsInCourse.length == 0) {
+                if (studentsInCourse.isEmpty()) {
                     System.out.println("Nu exista studenti participanti la curs ");
                 }
                 int totalGrade = 0;
@@ -103,7 +77,7 @@ public class CourseManager{
                 for (Student student : studentsInCourse) {
                     totalGrade += student.grade;
                 }
-                System.out.println("Media cursului " + course.name + " este egal cu: " + (double) totalGrade / studentsInCourse.length);
+                System.out.println("Media cursului " + course.name + " este egal cu: " + (double) totalGrade / studentsInCourse.size());
             }
             else{
                 System.out.println("Cursul nu exista");
@@ -117,8 +91,8 @@ public class CourseManager{
 
         for (Course course : courses) {
             if (course.teacher.equals(professor)) {
-                Student[] studentsInCourse = course.students;
-                totalStudents += studentsInCourse.length;
+                Set<Student> studentsInCourse = course.students;
+                totalStudents += studentsInCourse.size();
 
                 for (Student student : studentsInCourse) {
                     totalGrade += student.grade;
@@ -126,6 +100,6 @@ public class CourseManager{
             }
         }
 
-        System.out.println("Media cursurilor profesorului " + professor.getFullName() + " este egala cu: " + (double) totalGrade / totalStudents);
+        System.out.println("Media cursurilor profesorului " + professor.getFullName() + " este egal cu: " + (double) totalGrade / totalStudents);
     }
 }

@@ -71,10 +71,10 @@ public class CourseManager{
                 for (Student student : studentsInCourse) {
                     totalGrade += student.grade;
                 }
-                System.out.println("Media cursului " + course.name + " este: " + (double) totalGrade / studentsInCourse.length);
+                System.out.println("Media cursului " + course.name + " este egal cu: " + (double) totalGrade / studentsInCourse.length);
             }
             else{
-                System.out.println("Cursul " + course.name + " nu exista");
+                System.out.println("Cursul nu exista");
             }
         }
     }

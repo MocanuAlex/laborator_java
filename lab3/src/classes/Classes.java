@@ -15,6 +15,5 @@ public class Classes{
         courseManager.calculateAverageGradeByProfessor(prof);
         courseManager.listStudentsInCourse("Material Resistance");
         courseManager.calculateAverageGradeForCourse("Material Resistance");
-
     }
 }
